@@ -1,3 +1,9 @@
+import { NewTodoForm } from "./components/newTodo";
+
 export function App() {
-    return <div></div>;
+    return (
+        <div>
+            <NewTodoForm />
+        </div>
+    );
 }

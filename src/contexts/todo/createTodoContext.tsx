@@ -1,10 +1,10 @@
-import { Dispatch, SetStateAction, createContext } from "react";
+import { createContext } from "react";
 
 import { CreateTodoDTO } from "../../api/todo/dtos/create-todo";
 
 type TodoContextType = {
     createTodo: CreateTodoDTO;
-    setCreateTodo: Dispatch<SetStateAction<CreateTodoDTO>>;
+    setCreateTodo: (createTodo: CreateTodoDTO) => void;
 };
 
 export const createTodoContext = createContext<TodoContextType | undefined>(
