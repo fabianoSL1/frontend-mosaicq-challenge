@@ -1,21 +1,30 @@
-import { useCreateTodo } from "../hooks/useCreateTodo";
-import { todoService } from "../api/todo/todoService";
+import { useCreateTodo } from "../../hooks/useCreateTodo";
+import { todoService } from "../../api/todo/todoService";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { CreateTodoDTO } from "../api/todo/dtos/create-todo";
+import { CreateTodoDTO } from "../../api/todo/dtos/create-todo";
+import { useTodoList } from "../../hooks/useTodoList";
+import { Todo } from "../../api/todo/entities/Todo";
+
+const initialValues: CreateTodoDTO = {
+    title: "",
+    describe: "",
+};
 
 export function NewTodoForm() {
     const { createTodo, setCreateTodo } = useCreateTodo();
-
-    const { register, handleSubmit, getValues } = useForm({
+    const { setTodoList } = useTodoList();
+    const { register, handleSubmit, getValues, reset } = useForm({
         values: createTodo,
     });
 
     const onSubmit: SubmitHandler<CreateTodoDTO> = async (data) => {
-        await todoService.create(data);
-        setCreateTodo({
-            title: "",
-            describe: "",
+        const newTodo = await todoService.create(data);
+
+        setTodoList((todoList: Todo[]) => {
+            return [...todoList, newTodo];
         });
+        setCreateTodo(initialValues);
+        reset(initialValues);
     };
 
     const handleSave = () => {
@@ -23,7 +32,7 @@ export function NewTodoForm() {
     };
 
     return (
-        <div className="flex flex-col gap-2 mt-4 max-w-96 p-2 border-2 border-gray-100 rounded-md">
+        <div className="flex flex-col gap-2 mt-12 m-auto max-w-[480px] p-2 border-2 border-gray-100 rounded-md">
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-2"
@@ -40,7 +49,7 @@ export function NewTodoForm() {
                 ></textarea>
                 <button
                     type="submit"
-                    className=" rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white"
+                    className="mt-4 rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white"
                 >
                     create
                 </button>

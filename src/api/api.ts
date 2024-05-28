@@ -1,9 +1,12 @@
-import { Axios } from "axios";
+import { Axios, AxiosResponse } from "axios";
 
 export const api = new Axios({
     baseURL: import.meta.env.VITE_BACKEND_ENDPOINT,
     headers: {
         "Content-Type": "application/json",
+    },
+    validateStatus(status) {
+        return status < 400;
     },
 });
 
@@ -13,3 +16,10 @@ api.interceptors.request.use((config) => {
 
     return config;
 });
+
+
+export function throwStatusError(response: AxiosResponse) {
+    if (response.status >= 400) {
+        throw new Error();
+    }
+}
