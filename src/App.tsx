@@ -7,15 +7,17 @@ import { todoService } from "./api/todo/todoService";
 import { TodoList } from "./components/todo/todoList";
 import { useTodoList } from "./hooks/useTodoList";
 import { ButtonStatus } from "./components/buttonStatus";
+import { useAuth } from "./hooks/useAuth";
 
 export function App() {
     const { setTodoList } = useTodoList();
-
+    const { auth } = useAuth();
+    
     const [statusList, setStatusList] = useState<TodoStatus[]>([]);
 
     useEffect(() => {
         todoService.getAll().then((data) => setTodoList(data));
-    }, [setTodoList]);
+    }, [setTodoList, auth]);
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -23,13 +25,13 @@ export function App() {
             <Container>
                 <NewTodoForm />
                 <div className="flex gap-6 mt-12 px-8">
-                {Object.values(TodoStatus).map((status) => (
-                    <ButtonStatus
-                        key={status}
-                        status={status}
-                        setStatusList={setStatusList}
-                    />
-                ))}
+                    {Object.values(TodoStatus).map((status) => (
+                        <ButtonStatus
+                            key={status}
+                            status={status}
+                            setStatusList={setStatusList}
+                        />
+                    ))}
                 </div>
                 <TodoList statusList={statusList} />
             </Container>

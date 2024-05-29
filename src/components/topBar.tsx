@@ -1,10 +1,12 @@
 import { authService } from "../api/auth/authService";
+import { useAuth } from "../hooks/useAuth";
 import { Container } from "./Container";
 
 export function TopBar() {
+    const { setAuth } = useAuth();
 
     const handleAuth = async () => {
-        await authService.createToken()
+        setAuth(await authService.createToken());
     };
 
     return (

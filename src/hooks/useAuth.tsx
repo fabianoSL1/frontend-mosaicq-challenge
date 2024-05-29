@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { authContext } from "../contexts/auth/authContext";
 
-export function useCreateTodo() {
+export function useAuth() {
     const context = useContext(authContext);
 
     if (!context) {

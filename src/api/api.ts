@@ -1,4 +1,4 @@
-import { Axios, AxiosResponse } from "axios";
+import { Axios } from "axios";
 
 export const api = new Axios({
     baseURL: import.meta.env.VITE_BACKEND_ENDPOINT,
@@ -16,10 +16,3 @@ api.interceptors.request.use((config) => {
 
     return config;
 });
-
-
-export function throwStatusError(response: AxiosResponse) {
-    if (response.status >= 400) {
-        throw new Error();
-    }
-}
