@@ -24,7 +24,7 @@ export function App() {
             <TopBar />
             <Container>
                 <NewTodoForm />
-                <div className="flex gap-6 mt-12 px-8">
+                <div className="flex flex-col min-[380px]:flex-row gap-6 mt-12 px-8">
                     {Object.values(TodoStatus).map((status) => (
                         <ButtonStatus
                             key={status}
