@@ -4,6 +4,7 @@ import { TodoStatus } from "../api/todo/entities/todoStatus";
 import { UpdateTodoDTO } from "../api/todo/dtos/update-todo";
 import { todoService } from "../api/todo/todoService";
 import { useTodoList } from "../hooks/useTodoList";
+import { InputErrors } from "./InputErrors";
 
 type Props = {
     open: boolean;
@@ -42,19 +43,29 @@ export function EditTodoModal({ open, setOpen, todo }: Props) {
                     onSubmit={methods.handleSubmit(onSubmit)}
                     className="flex flex-col gap-4"
                 >
+                    <InputErrors errors={methods.formState.errors}/>
+                    
                     <div>
                         <label className="pl-2">Title</label>
                         <input
                             className="p-2 w-full rounded-md border-2 border-gray-200 outline-indigo-600"
                             type="text"
-                            {...methods.register("title")}
+                            {...methods.register("title", {
+                                required: true,
+                                minLength: 1,
+                                maxLength: 255,
+                            })}
                         ></input>
                     </div>
                     <div>
                         <label className="pl-2">Describe</label>
                         <textarea
                             className="p-2 w-full rounded-md border-2 border-gray-200 outline-indigo-600"
-                            {...methods.register("describe")}
+                            {...methods.register("describe", {
+                                required: true,
+                                minLength: 1,
+                                maxLength: 255,
+                            })}
                         ></textarea>
                     </div>
 
@@ -62,7 +73,7 @@ export function EditTodoModal({ open, setOpen, todo }: Props) {
                         <label className="pl-2">Status</label>
                         <select
                             className="p-2 rounded-md"
-                            {...methods.register("status")}
+                            {...methods.register("status", { required: true })}
                         >
                             {Object.values(TodoStatus).map((status) => (
                                 <option key={status} value={status}>

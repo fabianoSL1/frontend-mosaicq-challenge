@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { CreateTodoDTO } from "../../api/todo/dtos/create-todo";
 import { useTodoList } from "../../hooks/useTodoList";
 import { Todo } from "../../api/todo/entities/Todo";
+import { InputErrors } from "../InputErrors";
 
 const initialValues: CreateTodoDTO = {
     title: "",
@@ -13,7 +14,7 @@ const initialValues: CreateTodoDTO = {
 export function NewTodoForm() {
     const { createTodo, setCreateTodo } = useCreateTodo();
     const { setTodoList } = useTodoList();
-    const { register, handleSubmit, getValues, reset } = useForm({
+    const { register, handleSubmit, getValues, reset, formState } = useForm({
         values: createTodo,
     });
 
@@ -33,6 +34,8 @@ export function NewTodoForm() {
 
     return (
         <div className="flex flex-col gap-2 mt-12 m-auto max-w-[480px] p-2 border-2 border-gray-100 rounded-md">
+            <InputErrors errors={formState.errors} />
+
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-2"
@@ -40,12 +43,20 @@ export function NewTodoForm() {
                 <input
                     className="p-2 w-full rounded-md border-2 border-gray-200 outline-indigo-600"
                     placeholder="title"
-                    {...register("title")}
+                    {...register("title", {
+                        required: true,
+                        minLength: 1,
+                        maxLength: 255,
+                    })}
                 />
                 <textarea
                     className="p-2 w-full rounded-md border-2 border-gray-200 outline-indigo-600"
                     placeholder="describe"
-                    {...register("describe")}
+                    {...register("describe", {
+                        required: true,
+                        minLength: 1,
+                        maxLength: 255,
+                    })}
                 ></textarea>
                 <button
                     type="submit"
