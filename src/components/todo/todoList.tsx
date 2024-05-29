@@ -1,24 +1,23 @@
 import { useMemo } from "react";
-import { Todo } from "../../api/todo/entities/Todo";
 import { TodoStatus } from "../../api/todo/entities/todoStatus";
 import { TodoItem } from "./todoItem";
 import { todoService } from "../../api/todo/todoService";
 import { useTodoList } from "../../hooks/useTodoList";
 
 type Props = {
-    status?: TodoStatus;
+    statusList: TodoStatus[];
 };
 
-export function TodoList({ status }: Props) {
+export function TodoList({ statusList }: Props) {
     const {todoList, setTodoList} = useTodoList()
 
     const visibles = useMemo(() => {
-        if (status) {
-            return todoList.filter((todo) => todo.status === status);
+        if (statusList.length != 0) {
+            return todoList.filter((todo) => statusList.includes(todo.status));
         }
 
         return todoList;
-    }, [todoList, status]);
+    }, [todoList, statusList]);
 
     async function deleteTodo(todoId: number) {
         await todoService.delete(todoId)
@@ -26,9 +25,9 @@ export function TodoList({ status }: Props) {
     }
 
     return (
-        <div className="mt-12 flex flex-col gap-4 flex-grow">
+        <div className="mt-3 flex flex-col gap-4 flex-grow px-4">
             {visibles.map((todo) => (
-                <TodoItem todo={todo} deleteTodo={deleteTodo} />
+                <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} />
             ))}
         </div>
     );
