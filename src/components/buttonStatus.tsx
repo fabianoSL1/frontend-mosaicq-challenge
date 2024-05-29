@@ -16,7 +16,7 @@ export function ButtonStatus({setStatusList, status}: Props) {
             if (current.includes(status)) {
                 return current.filter(item => item != status)
             }
-            console.log(current)
+            
             return [...current, status]
         })
     }

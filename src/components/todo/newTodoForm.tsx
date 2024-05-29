@@ -38,12 +38,12 @@ export function NewTodoForm() {
                 className="flex flex-col gap-2"
             >
                 <input
-                    className="t-1 p-2 w-full rounded-md border-2 border-gray-200 outline-indigo-600"
+                    className="p-2 w-full rounded-md border-2 border-gray-200 outline-indigo-600"
                     placeholder="title"
                     {...register("title")}
                 />
                 <textarea
-                    className="t-1 p-2 w-full rounded-md border-2 border-gray-200 outline-indigo-600"
+                    className="p-2 w-full rounded-md border-2 border-gray-200 outline-indigo-600"
                     placeholder="describe"
                     {...register("describe")}
                 ></textarea>
