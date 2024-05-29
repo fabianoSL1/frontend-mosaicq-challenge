@@ -18,7 +18,7 @@ export function App() {
     }, [setTodoList]);
     
     return (
-        <div>
+        <div className="min-h-screen bg-gray-100">
             <TopBar />
             <Container>
                 <NewTodoForm />
