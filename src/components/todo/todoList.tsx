@@ -3,7 +3,7 @@ import { TodoStatus } from "../../api/todo/entities/todoStatus";
 import { TodoItem } from "./todoItem";
 import { todoService } from "../../api/todo/todoService";
 import { useTodoList } from "../../hooks/useTodoList";
-import { EditTodoModal } from "../EditTodoModal";
+import { EditTodoModal } from "./EditTodoModal";
 import { Todo } from "../../api/todo/entities/Todo";
 
 type Props = {

@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Todo } from "../api/todo/entities/Todo";
-import { TodoStatus } from "../api/todo/entities/todoStatus";
-import { UpdateTodoDTO } from "../api/todo/dtos/update-todo";
-import { todoService } from "../api/todo/todoService";
-import { useTodoList } from "../hooks/useTodoList";
-import { InputErrors } from "./InputErrors";
+import { Todo } from "../../api/todo/entities/Todo";
+import { TodoStatus } from "../../api/todo/entities/todoStatus";
+import { UpdateTodoDTO } from "../../api/todo/dtos/update-todo";
+import { todoService } from "../../api/todo/todoService";
+import { useTodoList } from "../../hooks/useTodoList";
+import { InputErrors } from "../InputErrors";
 
 type Props = {
     open: boolean;
