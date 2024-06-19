@@ -35,7 +35,7 @@ export function TodoList({ statusList }: Props) {
     }
 
     return (
-        <div className="mt-3 flex flex-col gap-4 flex-grow px-4">
+        <div className="mt-3 mb-8 flex flex-col gap-4 flex-grow px-4">
             <EditTodoModal open={open} setOpen={setOpen} todo={todo} />
             {visibles.map((todo) => (
                 <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} editTodo={updateTodo} />
